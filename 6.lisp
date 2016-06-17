@@ -87,10 +87,61 @@ T(n) <= T(2n/3) + O(1) ==> T(n) = O(lgn)
 	  (setf dummy (aref arr i))
 	  (setf (aref arr i) (aref arr largest))
 	  (setf (aref arr largest) dummy)
-	  (max-heapify arr largest)))))
+	  (max-heapify arr largest))
+	arr)))
 
 #+test
 (let ((arr (vector 16 4 10 14 7 9 3 2 8 1)))
-  (max-heapify arr 1)
-  ; arr == vector(16 14 10 8 7 9 3 2 4 1)
-  arr)
+  ; arr result vector(16 14 10 8 7 9 3 2 4 1)
+  (max-heapify arr 1))
+
+;;;; 6.3 建堆
+(defun build-max-heap (arr)
+  (do ((i (- (length arr) 1) (1- i)))
+      ((< i 0) arr)
+    (max-heapify arr i)))
+
+#+test
+(let ((arr (vector 4 1 3 2 16 9 10 14 8 7)))
+  ; result: (vector 16 14 10 8 7 9 3 2 4 1)
+  (build-max-heap arr))
+
+; 每次调用 max-heapify的时间复杂度是lgn
+; build-max-heap需要O(n)次这样的调用
+; 因此总的时间复杂度就是O(nlgn)
+; 这个上界虽然正确 但不是渐进紧确的
+; 但是根据如下性质可以得到一个更紧确的界：
+; 包含n个元素的堆的高度为floor(lgn)，高度为h的堆最多包含celing(n/2^(h+1))个节点
+; 最终可以推导出 build-max-heap为O(n)
+
+;;;; 6.4 堆排序算法
+
+(defun heap-sort (arr)
+  "
+初始时候，堆排序算法利用build-max-heap将输入数组A[0 ... n-1]建立成最大堆(n = A.length)
+因为数组总最大元素总在根节点A[0]中，通过把它与A[n-1]互换，我们可以把该元素放到正确的位置
+这时候，我们可以从堆中去掉节点n(通过减少A.heap-size实现)
+新的节点组合违背了最大堆的性质，需要调用max-heapify(A, 0)
+从而在A[0 ... n-2]上构建一个新的最大堆
+直到从n-2降到1
+
+HEAP-SORT(A)
+    BUILD-MAX-HEAP(A)
+    for i = A.length - 1 downto 1
+        exchange A[0] with A[i]
+        A.heap-size = A.heap-size - 1
+        MAX-HEAPIFY(A, 0)
+"
+  (build-max-heap arr)
+  (do ((i (- (length arr) 1) (1- i)))
+      ((< i 1) arr)
+    (let ((dummy nil))
+      (setf dummy (aref arr 0))
+      (setf (aref arr 0) (aref arr i))
+      (setf (aref arr i) dummy)
+    (max-heapify arr 0))
+    ))
+
+#+test
+(let ((arr (vector 5 4 3 1 2)))
+  (heap-sort arr))
