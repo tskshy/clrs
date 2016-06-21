@@ -185,19 +185,19 @@ HEAP-SORT(A)
 
 
 ;;;; 6.5 优先队列
-优先队列(priority queue)是一种用来维护由一组元素构成的集合S的数据结构
-其中每一个元素都有一个相关的值，称为关键字(key)
-一个最大优先队列支持以下操作：
-INSERT(S, x)：插入元素x到集合S中
-MAXIMUM(S)：返回S中具有最大关键字的元素
-EXTRACT-MAX(S)：去掉并返回S中具有最大关键字的元素
-INCREASE-KEY(S, x, k)：将元素x的关键字值增加到k，这里假设k不小于x原关键字值
-
-相应的，最小优先队列支持的操作为：
-INSERT(S, x)
-MINIMUM(S)
-EXTRACT-MIN(S)
-DECREASE-KEY(S, x, k)
-
-显然，优先队列可以用堆实现
+; 优先队列(priority queue)是一种用来维护由一组元素构成的集合S的数据结构
+; 其中每一个元素都有一个相关的值，称为关键字(key)
+; 一个最大优先队列支持以下操作：
+; INSERT(S, x)：插入元素x到集合S中
+; MAXIMUM(S)：返回S中具有最大关键字的元素
+; EXTRACT-MAX(S)：去掉并返回S中具有最大关键字的元素
+; INCREASE-KEY(S, x, k)：将元素x的关键字值增加到k，这里假设k不小于x原关键字值
+; 
+; 相应的，最小优先队列支持的操作为：
+; INSERT(S, x)
+; MINIMUM(S)
+; EXTRACT-MIN(S)
+; DECREASE-KEY(S, x, k)
+; 
+; 显然，优先队列可以用堆实现 ... TODO
 
