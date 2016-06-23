@@ -107,3 +107,24 @@ RADIX-SORT(A, d)
 
 ;;;; 8.4 桶排序
 
+; 桶排序(bucket sort)假设输入数据服从均匀分布，平均情况下它的时间代价位O(n)
+
+; 备注：'(1 2 3)为不可变的list (list 1 2 3)可以变更list元素
+
+(defun bucket-sort (arr)
+  "
+BUCKET-SORT(A)
+    n = A.length
+    let B[0...n-1] be a new array
+    for i = 0 to n-1
+        B[i] = empty list
+    for i = 0 to n-1
+        insert A[i] into list B[nA[i]] //把A元素插入B中对应桶区间
+    for i = 0 to n-1
+        sort list B[i] with insertion sort
+    concatenate the lists B[0] ... B[n-1] together in order
+
+桶排序最坏情况运行时间是O(n^2)，期望运行时间为O(n)线性阶
+"
+  "TODO")
+
