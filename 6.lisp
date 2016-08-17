@@ -63,12 +63,12 @@ MAX-HEAPIFY (A, i, root-index)
     heap-size = A.heap-size - root-index
     new-i = i + root-index
 
-    if l < heap-size - root-index and A[l] > A[new-i]
+    if l - root-index < heap-size and A[l] > A[new-i]
         largest = l
     else
         largest = new-i
 
-    if r < heap-size - root-index and A[r] > A[largest]
+    if r - root-index < heap-size and A[r] > A[largest]
         largest = r
 
     if largest != new-i
